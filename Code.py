@@ -61,3 +61,21 @@ plt.hist(data['price-binned'])
 plt.show()
 
 
+pd.get_dummies(data['fuel-type']).head()
+data.describe()
+
+plt.boxplot(data['price'])
+
+sns.boxplot(x='drive-wheels', y= 'price', data=data)
+
+plt.scatter(data['engine-size'], data['price'])
+
+plt.title('Scatterplot of Enginesize vs Price')
+
+plt.xlabel('Engine size')
+
+plt.ylabel('Price')
+
+plt.grid()
+plt.show()
+
