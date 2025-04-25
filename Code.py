@@ -84,4 +84,9 @@ data_grp = test.groupby(['drive-wheels', 'body-style'],
                         as_index = False).mean()
 data_grp
 
-
+data_pivot = data_grp.pivot(index= 'drive-wheels',
+                            columns = 'body-style')
+data_pivot
+plt.pcolor(data_pivot, cmap = 'RdBu')
+plt.colorbar()
+plt.show()
