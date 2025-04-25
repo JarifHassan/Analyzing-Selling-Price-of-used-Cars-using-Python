@@ -30,3 +30,34 @@ data['city-mpg'] = 235 / df['city-mpg']
 data.rename(columns = {'city_mpg': "city-L/100km"}, inplace = True)
 print(data.columns)
 data.dtypes
+
+data['length'] = data['length']/data['length'].max()
+data['width'] = data['width']/data['width'].max()
+data['height'] = data['height']/data['height'].max()
+# Replace '?' with NaN in the 'price' column
+df['price'] = df['price'].replace('?', np.nan)
+
+# Convert the 'price' column to a numeric type.
+# 'errors="coerce"' will turn any values that cannot be converted into NaN.
+df['price'] = pd.to_numeric(df['price'], errors='coerce')
+
+# Drop rows where 'price' is NaN, as linspace cannot handle NaN values.
+# Alternatively, you could impute missing values depending on your analysis needs.
+df.dropna(subset=['price'], axis=0, inplace=True)
+
+# Reset index after dropping rows
+df.reset_index(drop=True, inplace=True)
+# --- End of Data Cleaning ---
+
+
+# Print the head of the DataFrame to verify the column names and cleaned data
+
+bins = np.linspace(min(data['price']), max(data['price']),4)
+group_names = ['Low', 'Medium', 'High']
+data['price-binned'] = pd.cut(data['price'], bins, labels = group_names, include_lowest= True)
+
+print(data['price-binned'])
+plt.hist(data['price-binned'])
+plt.show()
+
+
