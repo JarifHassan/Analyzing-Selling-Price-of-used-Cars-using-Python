@@ -90,3 +90,14 @@ data_pivot
 plt.pcolor(data_pivot, cmap = 'RdBu')
 plt.colorbar()
 plt.show()
+
+
+data_annova = data[['make','price']]
+grouped_annova = data_annova.groupby(['make'])
+annova_results_1 = sp.stats.f_oneway(
+    grouped_annova.get_group('honda')['price'],
+    grouped_annova.get_group('subaru')['price']
+)
+print(annova_results_1)
+sns.regplot(x='engine-size', y= 'price', data=data)
+plt.ylim(0,)
